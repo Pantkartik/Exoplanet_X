@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Exoplanet X</title>
+    <link rel="stylesheet" href="./style.css" />
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            background-color: black;
+        }
+
+        /* Navbar styles */
+        .navbar {
+            width: 98%;
+            height: 56px;
+            background: #13223a;
+            color: #ffd600;
+            display: flex;
+            position: fixed;
+            top: 0; left: 0;
+            z-index: 99;
+            align-items: center;
+            padding: 0 32px;
+            box-shadow: 0 1px 8px rgba(0,0,0,.18);
+        }
+        .navbar-logo {
+            font-size: 1.8em;
+            font-weight: bold;
+            letter-spacing: 2px;
+            user-select: none;
+        }
+        .navbar-search {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+        }
+        .navbar-search input[type=text] {
+            border-radius: 18px;
+            border: none;
+            padding: 8px 16px;
+            width: 220px;
+            background: #23234a;
+            color: #fff;
+            font-size: 16px;
+            margin-right: 8px;
+            outline: none;
+            z-index: 100;
+        }
+        .navbar-search button {
+            padding: 8px 20px;
+            border-radius: 18px;
+            border: none;
+            background: #37a3ff;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background .3s;
+        }
+        .navbar-search button:hover {
+            background: #226fa9;
+        }
+
+        /* GUI container moved down so not behind navbar */
+        #gui-container {
+            position: absolute;
+            top: 70px !important;
+            right: 10px;
+            z-index: 10;
+        }
+
+        /* Planet info panel moved down below navbar */
+        .planet-info {
+            display: none;
+            position: fixed;
+            left: 1%;
+            top: 80px;
+            width: 30%;
+            z-index: 1;
+        }
+        .planet-info-content {
+            background-color: rgb(0, 0, 35);
+            padding: 20px;
+            border: 1px solid #888;
+            box-shadow: 0px 0px 10px 3px rgba(255,255,0,0.5);
+            color: white;
+            overflow-y: auto;
+        }
+
+        .exoplanet-info {
+            display: none;
+            position: fixed;
+            right: 1%;
+            top: 80px;
+            width: 35%;
+            z-index: 1;
+        }
+        .exoplanet-info-content {
+            background-color: rgb(0, 0, 35);
+            padding: 20px;
+            border: 1px solid #4a9eff;
+            box-shadow: 0px 0px 15px 5px rgba(74,158,255,0.3);
+            color: white;
+            overflow-y: auto;
+        }
+
+        .analyze-btn {
+            background-color: #4a9eff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+        .analyze-btn:hover {
+            background-color: #357abd;
+        }
+
+        .analysis-result {
+            margin-top: 15px;
+            padding: 10px;
+            background-color: rgba(74,158,255,0.1);
+            border-left: 3px solid #4a9eff;
+        }
+
+        .data-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin: 15px 0;
+        }
+        .data-item {
+            font-size: 0.9em;
+        }
+        .data-label {
+            color: #4a9eff;
+            font-weight: bold;
+        }
+
+        .close-btn {
+            color: lightyellow;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close-btn:hover,
+        .close-btn:focus {
+            color: white;
+        }
+
+        h2 {
+            color: lightyellow;
+        }
+
+        p {
+            color: white;
+            line-height: 1.5;
+            white-space: pre-line;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-logo">Exoplanet X</div>
+        <form class="navbar-search" id="exoplanetSearchForm" autocomplete="off" onsubmit="return false;">
+            <input type="text" id="exoplanetSearchInput" placeholder="Search exoplanet..." />
+            <button type="submit">Go</button>
+        </form>
+    </nav>
+    <br>
+    <br>
+    
+    <br>
+    <div id="gui-container"></div>
+    
+    <div id="planetInfo" class="planet-info">
+        <div class="planet-info-content">
+            <span class="close-btn" onclick="closeInfo()">&times;</span>
+            <h2 id="planetName"></h2>
+            <p id="planetDetails"></p>
+        </div>
+    </div>
+
+    <div id="exoplanetInfo" class="exoplanet-info">
+        <div class="exoplanet-info-content">
+            <span class="close-btn" onclick="closeExoplanetInfo()">&times;</span>
+            <h2 id="exoplanetName"></h2>
+            <div class="data-grid" id="exoplanetData"></div>
+            <button class="analyze-btn" onclick="analyzeExoplanet()">Analyze Planet Type</button>
+            <div id="analysisResult" class="analysis-result" style="display: none;"></div>
+        </div>
+    </div>
+
+    <script type="module" src="./script.js"></script>
+</body>
+</html>
